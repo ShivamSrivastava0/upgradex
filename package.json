@@ -1,0 +1,21 @@
+{
+  "name": "upgradex",
+  "version": "0.1.0",
+  "description": "Software upgrade and change intelligence CLI",
+  "type": "module",
+  "engines": {
+    "node": ">=20.17"
+  },
+  "bin": {
+    "upgradex": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  }
+}
