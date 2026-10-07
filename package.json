@@ -7,8 +7,8 @@
     "node": ">=20.17"
   },
   "bin": {
-    "upgradex": "./dist/cli/index.js"
-  },
+  "upgradex": "./dist/apps/cli/index.js"
+},
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
@@ -17,5 +17,22 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.8.1",
+    "picocolors": "^1.1.1",
+    "semver": "^7.8.5",
+    "tinyglobby": "^0.2.17",
+    "ts-morph": "^28.0.0",
+    "typescript": "^6.0.2",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "eslint": "^10.12.0",
+    "prettier": "^3.9.9",
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^5.0.3"
   }
 }
