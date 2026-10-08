@@ -94,9 +94,13 @@ export function readProjectTextFile(
     try {
       const openedStat = fstatSync(fd);
       // Reject a path replacement between lstat/realpath and opening the file.
+      // Some Windows Node releases report lstat.dev as 0 while fstat.dev is set;
+      // treat zero as unavailable and use the inode comparison instead.
       if (
         !openedStat.isFile() ||
-        openedStat.dev !== entryStat.dev ||
+        (entryStat.dev !== 0 &&
+          openedStat.dev !== 0 &&
+          openedStat.dev !== entryStat.dev) ||
         openedStat.ino !== entryStat.ino
       ) {
         return {

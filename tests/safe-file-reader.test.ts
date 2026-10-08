@@ -1,6 +1,7 @@
 import {
   mkdtempSync,
   mkdirSync,
+  readFileSync,
   rmSync,
   symlinkSync,
   writeFileSync,
@@ -20,6 +21,20 @@ afterEach(() => {
 });
 
 describe("safe project file reads", () => {
+  it("reads checked-in source files on Windows Node runtimes with unavailable lstat device ids", () => {
+    const root = path.resolve(
+      process.cwd(),
+      "fixtures",
+      "project-detector-typescript",
+    );
+    const expected = readFileSync(path.join(root, "src", "index.ts"), "utf8");
+
+    expect(readProjectTextFile(root, "src/index.ts")).toEqual({
+      ok: true,
+      content: expected,
+    });
+  });
+
   it("rejects paths outside the root and oversized files", () => {
     const root = mkdtempSync(path.join(os.tmpdir(), "upgradex-safe-read-"));
     roots.push(root);
