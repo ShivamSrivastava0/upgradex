@@ -47,7 +47,7 @@
     "prepack": "npm run build",
     "prepublishOnly": "npm run quality && npm run validate:release && npm run test:artifact",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check . --end-of-line auto"
   },
   "dependencies": {
     "@clack/prompts": "^1.8.1",

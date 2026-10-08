@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-24.04, windows-latest]
         node: [22.13.0, 24.0.0, 26.x]
 
     steps:
@@ -26,6 +26,13 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm audit --omit=dev
-      - run: npm run quality
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Tests
+        run: npm test
+      - name: Lint
+        run: npm run lint
+      - name: Formatting
+        run: npm run format:check
       - run: npm pack --dry-run
       - run: npm run test:artifact
