@@ -1,0 +1,340 @@
+- id: EXP5-001
+  title: Replace removed app.del() route method
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: call-member
+    member: del
+    receiver: [app]
+    receiverKind: express-app
+  why: Express 5 removed app.del(); use delete() for HTTP DELETE routes.
+  guidance: Replace this route registration with delete() and review the route behavior.
+  codemod: express-del-to-delete
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-007
+  title: Update res.json() status argument order
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: call-member
+    member: json
+    receiver: [res]
+    argumentCount: 2
+  why: Express 5 removed the two-argument res.json() status signature.
+  guidance: Move the status code into res.status(status).json(body) after checking the argument roles.
+  codemod: express-status-send-order
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-008
+  title: Update res.jsonp() status argument order
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: call-member
+    member: jsonp
+    receiver: [res]
+    argumentCount: 2
+  why: Express 5 removed the two-argument res.jsonp() status signature.
+  guidance: Move the status code into res.status(status).jsonp(body) after checking the argument roles.
+  codemod: express-status-send-order
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-009
+  title: Update res.send() status argument order
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: call-member
+    member: send
+    receiver: [res]
+    argumentCount: 2
+  why: Express 5 removed the two-argument res.send() status signature.
+  guidance: Move the status code into res.status(status).send(body) after checking the argument roles.
+  codemod: express-status-send-order
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-010
+  title: Replace numeric res.send(status)
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: call-member
+    member: send
+    receiver: [res]
+    argumentCount: 1
+    firstArgument: number
+  why: Express 5 removed res.send(status) for numeric status codes.
+  guidance: Use res.sendStatus(code) if sending the status message, or send a string if the number is response content.
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-011
+  title: Replace res.redirect('back')
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: medium
+  detector:
+    type: call-member
+    member: redirect
+    receiver: [res]
+    firstArgument: string
+    firstArgumentPrefix: back
+  why: Express 5 no longer supports the special back redirect value.
+  guidance: Use the Referrer header with a safe fallback URL and validate redirect destinations.
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-012
+  title: Replace removed app.param(fn) signature
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: call-member
+    member: param
+    receiver: [app]
+    receiverKind: express-app
+    argumentCount: 1
+    firstArgument: function
+  why: Express 5 removed the app.param(fn) signature.
+  guidance: Register named route parameters with app.param(name, callback) or access request data explicitly.
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-013
+  title: Update res.redirect() status argument order
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: call-member
+    member: redirect
+    receiver: [res]
+    argumentCount: 2
+  why: Express 5 removed the old two-argument res.redirect(url, status) signature.
+  guidance: Set the status first with res.redirect(status, url) after checking the argument roles.
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-014
+  title: Replace the special back redirect value
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: medium
+  detector:
+    type: call-member
+    member: location
+    receiver: [res]
+    firstArgument: string
+    firstArgumentPrefix: back
+  why: Express 5 removed the special back value for res.location().
+  guidance: Resolve a safe Referrer value explicitly and use a controlled fallback URL.
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-015
+  title: Remove the legacy colon from app.param() names
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: medium
+  detector:
+    type: call-member
+    member: param
+    receiver: [app]
+    receiverKind: express-app
+    argumentCount: 2
+    firstArgument: string
+    firstArgumentPrefix: ":"
+  why: Express 5 ignores a leading colon in app.param() names.
+  guidance: Pass the parameter name without the leading colon and verify parameter middleware registration.
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-016
+  title: Replace router.param() array argument
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: call-member
+    member: param
+    receiver: [router]
+    firstArgument: array
+  why: Express 5 router.param() requires a string name and rejects an array of names.
+  guidance: Register each parameter name in a separate router.param() call.
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-017
+  title: Provide a field to res.vary()
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: medium
+  detector:
+    type: call-member
+    member: vary
+    receiver: [res]
+    argumentCount: 0
+  why: Express 5 throws when res.vary() is called without a field argument.
+  guidance: Provide the header field that should vary the response.
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-018
+  title: Review express.urlencoded() parser defaults
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: medium
+  detector:
+    type: call-member
+    member: urlencoded
+    receiver: [express]
+    argumentCount: 0
+  why: Express 5 changes the default extended option for express.urlencoded() to false.
+  guidance: "If the application requires nested query parsing, set extended: true explicitly and test parsing behavior."
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-019
+  title: Replace removed express.static.mime access
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: member-access
+    member: mime
+    receiver: express.static
+  why: Express 5 no longer exposes mime through express.static.
+  guidance: Use the mime-types package directly for MIME lookup behavior.
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-020
+  title: Name wildcard parameters in route strings
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: route-path-pattern
+    pattern: unnamed-wildcard
+    receiver: [app, router]
+    receiverKind: express-route
+  why: Express 5 route strings require wildcard parameters to have a name.
+  guidance: Give the wildcard a name and check whether the route should also match the root path.
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-021
+  title: Replace optional route parameter markers
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: route-path-pattern
+    pattern: optional-marker
+    receiver: [app, router]
+    receiverKind: express-route
+  why: Express 5 route strings no longer support the question mark optional marker.
+  guidance: Rewrite the optional portion with Express 5 brace syntax and test matching cases.
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-022
+  title: Review reserved regexp characters in route strings
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: route-path-pattern
+    pattern: regexp-character
+    receiver: [app, router]
+    receiverKind: express-route
+  why: Express 5 path strings do not support regexp characters as Express 4 route patterns did.
+  guidance: Replace regexp route patterns with explicit path alternatives or a regular expression route where appropriate.
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-002
+  title: Replace removed req.param() lookup
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: call-member
+    member: param
+    receiver: [req]
+  why: Express 5 removed req.param(name); select explicitly from req.params, req.body, or req.query.
+  guidance: Choose the correct request source for this value and replace req.param() explicitly.
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-003
+  title: Replace removed sendfile() method
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: call-member
+    member: sendfile
+    receiver: [res]
+  why: Express 5 removed res.sendfile(); the replacement method is res.sendFile().
+  guidance: Change sendfile() to sendFile() and verify path handling.
+  codemod: express-sendfile-to-sendFile
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-004
+  title: Update removed pluralized request methods
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: call-member
+    member: acceptsCharset
+    receiver: [req]
+  why: Express 5 removed acceptsCharset(); use acceptsCharsets().
+  guidance: Change to acceptsCharsets() and verify the returned negotiation result.
+  codemod: express-pluralize-methods
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-005
+  title: Update removed pluralized request methods
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: call-member
+    member: acceptsEncoding
+    receiver: [req]
+  why: Express 5 removed acceptsEncoding(); use acceptsEncodings().
+  guidance: Change to acceptsEncodings() and verify the returned negotiation result.
+  codemod: express-pluralize-methods
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true
+- id: EXP5-006
+  title: Update removed pluralized request methods
+  technology: express
+  from: 4.x
+  to: 5.x
+  severity: high
+  detector:
+    type: call-member
+    member: acceptsLanguage
+    receiver: [req]
+  why: Express 5 removed acceptsLanguage(); use acceptsLanguages().
+  guidance: Change to acceptsLanguages() and verify the returned negotiation result.
+  codemod: express-pluralize-methods
+  source: https://expressjs.com/en/guide/migrating-5/
+  verified: true

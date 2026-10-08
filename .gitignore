@@ -5,3 +5,6 @@ coverage/
 .env.*
 *.log
 .upgradex/
+upgradex.proof.json
+# npm release artifacts
+*.tgz

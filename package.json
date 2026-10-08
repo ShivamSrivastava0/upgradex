@@ -1,20 +1,43 @@
 {
   "name": "upgradex",
   "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Shivam Srivastava",
+    "email": "shivamsrivastava5095@gmail.com"
+  },
   "description": "Software upgrade and change intelligence CLI",
+  "keywords": [
+    "upgrade",
+    "migration",
+    "codemod",
+    "static-analysis",
+    "nodejs",
+    "express",
+    "cli"
+  ],
   "type": "module",
   "engines": {
-    "node": ">=20.17"
+    "node": ">=22.13.0"
   },
   "bin": {
-  "upgradex": "./dist/apps/cli/index.js"
-},
+    "upgradex": "./dist/apps/cli/index.js"
+  },
+  "files": [
+    "dist",
+    "rules"
+  ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "test": "vitest run --dir tests --pool=threads",
+    "test:watch": "vitest --dir tests --pool=threads",
     "lint": "eslint .",
+    "quality": "npm run typecheck && npm test && npm run lint && npm run format:check",
+    "test:artifact": "node scripts/check-package-artifact.mjs",
+    "validate:release": "node scripts/check-release-metadata.mjs",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run quality && npm run validate:release && npm run test:artifact",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
@@ -29,7 +52,9 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^26.6.4",
+    "@types/semver": "^7.8.0",
     "eslint": "^10.12.0",
     "prettier": "^3.9.9",
     "typescript-eslint": "^8.71.1",

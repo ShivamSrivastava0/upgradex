@@ -1,0 +1,7 @@
+{
+  "name": "rule-express-positive",
+  "private": true,
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

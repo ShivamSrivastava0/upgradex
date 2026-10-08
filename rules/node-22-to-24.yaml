@@ -1,0 +1,132 @@
+- id: NODE24-001
+  title: Replace removed process.assert()
+  technology: node
+  from: 22.x
+  to: 24.x
+  severity: high
+  detector:
+    type: call-member
+    member: assert
+    receiver: [process]
+  why: process.assert was removed before Node.js 24; use the assert module.
+  guidance: Import node:assert and call assert(condition), preserving the intended message behavior.
+  source: https://nodejs.org/en/blog/migrations/v22-to-v24
+  verified: true
+- id: NODE24-002
+  title: Use fs.constants for access flags
+  technology: node
+  from: 22.x
+  to: 24.x
+  severity: medium
+  detector:
+    type: member-access
+    member: F_OK
+    receiver: fs
+  why: Node.js deprecates F_OK exposed directly from node:fs; read it from fs.constants.
+  guidance: Replace fs.F_OK with fs.constants.F_OK and check other direct access-mode constants.
+  codemod: node-fs-constants
+  source: https://nodejs.org/en/blog/migrations/v22-to-v24
+  verified: true
+- id: NODE24-003
+  title: Use fs.constants for access flags
+  technology: node
+  from: 22.x
+  to: 24.x
+  severity: medium
+  detector:
+    type: member-access
+    member: R_OK
+    receiver: fs
+  why: Node.js deprecates R_OK exposed directly from node:fs; read it from fs.constants.
+  guidance: Replace fs.R_OK with fs.constants.R_OK and check other direct access-mode constants.
+  codemod: node-fs-constants
+  source: https://nodejs.org/en/blog/migrations/v22-to-v24
+  verified: true
+- id: NODE24-004
+  title: Use fs.constants for access flags
+  technology: node
+  from: 22.x
+  to: 24.x
+  severity: medium
+  detector:
+    type: member-access
+    member: W_OK
+    receiver: fs
+  why: Node.js deprecates W_OK exposed directly from node:fs; read it from fs.constants.
+  guidance: Replace fs.W_OK with fs.constants.W_OK and check other direct access-mode constants.
+  codemod: node-fs-constants
+  source: https://nodejs.org/en/blog/migrations/v22-to-v24
+  verified: true
+- id: NODE24-005
+  title: Use fs.constants for access flags
+  technology: node
+  from: 22.x
+  to: 24.x
+  severity: medium
+  detector:
+    type: member-access
+    member: X_OK
+    receiver: fs
+  why: Node.js deprecates X_OK exposed directly from node:fs; read it from fs.constants.
+  guidance: Replace fs.X_OK with fs.constants.X_OK and check other direct access-mode constants.
+  codemod: node-fs-constants
+  source: https://nodejs.org/en/blog/migrations/v22-to-v24
+  verified: true
+- id: NODE24-006
+  title: Replace deprecated Dirent.path
+  technology: node
+  from: 22.x
+  to: 24.x
+  severity: medium
+  detector:
+    type: member-access
+    member: path
+    receiver: dirent
+  why: Dirent.path is deprecated; use Dirent.parentPath for the containing directory.
+  guidance: Confirm this value is a Dirent from readdir/opendir, then change path to parentPath.
+  codemod: node-dirent-path-to-parentPath
+  source: https://nodejs.org/en/blog/migrations/v22-to-v24
+  verified: true
+- id: NODE24-007
+  title: Review fs.truncate() file descriptor use
+  technology: node
+  from: 22.x
+  to: 24.x
+  severity: medium
+  detector:
+    type: call-member
+    member: truncate
+    receiver: [fs]
+    firstArgument: identifier
+  why: fs.truncate() is deprecated when called with a file descriptor; use fs.ftruncate() for descriptors.
+  guidance: Determine whether this argument is a file descriptor. Keep truncate() for path strings and use ftruncate() for descriptors.
+  source: https://nodejs.org/en/blog/migrations/v22-to-v24
+  verified: true
+- id: NODE24-008
+  title: Remove HTTP/2 priority signaling
+  technology: node
+  from: 22.x
+  to: 24.x
+  severity: medium
+  detector:
+    type: call-member
+    member: priority
+    receiver: [stream]
+  why: HTTP/2 priority signaling is deprecated and its priority methods/options should be removed.
+  guidance: Confirm this stream is from node:http2 and remove priority signaling; do not remove unrelated methods with the same name.
+  source: https://nodejs.org/en/blog/migrations/v22-to-v24
+  verified: true
+- id: NODE24-009
+  title: Replace tls.createSecurePair()
+  technology: node
+  from: 22.x
+  to: 24.x
+  severity: high
+  detector:
+    type: call-member
+    member: createSecurePair
+    receiver: [tls]
+  why: tls.createSecurePair() is deprecated and should be replaced with TLSSocket construction.
+  guidance: Review socket ownership and TLS options before migrating this call to TLSSocket.
+  source: https://nodejs.org/en/blog/migrations/v22-to-v24
+  verified: true

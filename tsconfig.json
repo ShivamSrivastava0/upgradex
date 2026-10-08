@@ -10,6 +10,8 @@
     "allowJs": true,
     "checkJs": false,
 
+    "types": ["node"],
+
     "declaration": true,
     "sourceMap": true,
 
@@ -21,16 +23,7 @@
     "skipLibCheck": true
   },
 
-  "include": [
-    "apps/**/*.ts",
-    "src/**/*.ts"
-  ],
+  "include": ["apps/**/*.ts", "src/**/*.ts", "tests/**/*.ts"],
 
-  "exclude": [
-    "node_modules",
-    "dist",
-    "tests",
-    "fixtures",
-    "examples"
-  ]
+  "exclude": ["node_modules", "dist", "fixtures", "examples"]
 }

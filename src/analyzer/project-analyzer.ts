@@ -1,8 +1,8 @@
-import { Project, SourceFile } from 'ts-morph';
+import { Project, SourceFile } from "ts-morph";
 
 export interface AnalyzedSourceFile {
   filePath: string;
-  language: 'typescript' | 'javascript';
+  language: "typescript" | "javascript";
   statementCount: number;
   functionCount: number;
   classCount: number;
@@ -28,9 +28,7 @@ export class ProjectAnalyzer {
     const extension = sourceFile.getExtension();
 
     const language =
-      extension === '.ts' || extension === '.tsx'
-        ? 'typescript'
-        : 'javascript';
+      extension === ".ts" || extension === ".tsx" ? "typescript" : "javascript";
 
     return {
       filePath: sourceFile.getFilePath(),

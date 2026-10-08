@@ -1,0 +1,15 @@
+{
+  "name": "runtime-node-fixture",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "npm@10.9.2",
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0"
+  },
+  "dependencies": {
+    "node-gyp-build": "^4.8.0"
+  }
+}
