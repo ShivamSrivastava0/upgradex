@@ -8,7 +8,7 @@ Software upgrades are not just about installing a newer dependency version. A ch
 
 UpgradeX analyzes supported upgrade paths to identify potentially breaking changes, map affected code, assess migration risks, preview supported code changes, and review verification evidence.
 
-Instead of simply asking *"Is a newer version available?"*, UpgradeX helps answer the more important question:
+Instead of simply asking _"Is a newer version available?"_, UpgradeX helps answer the more important question:
 
 **"What could this upgrade change, what might break, and what evidence do I have before shipping it?"**
 
@@ -179,13 +179,13 @@ UpgradeX is designed for the broader software upgrade and change intelligence pr
 
 The current release includes **31 built-in upgrade rules** covering:
 
-| Upgrade path | Current support |
-|---|---|
-| Node.js 22 → 24 | Focused migration analysis |
-| Express 4 → 5 | Focused migration analysis |
-| React | Version-surface detection; migration rules not currently available |
-| Vite | Version-surface detection; migration rules not currently available |
-| TypeScript | Version-surface detection; migration rules not currently available |
+| Upgrade path    | Current support                                                    |
+| --------------- | ------------------------------------------------------------------ |
+| Node.js 22 → 24 | Focused migration analysis                                         |
+| Express 4 → 5   | Focused migration analysis                                         |
+| React           | Version-surface detection; migration rules not currently available |
+| Vite            | Version-surface detection; migration rules not currently available |
+| TypeScript      | Version-surface detection; migration rules not currently available |
 
 Discovery of a technology or version does not mean that UpgradeX has comprehensive rules for it.
 
@@ -261,11 +261,11 @@ upgradex scan --technology express --from 4 --to 5 --ci
 
 Supported output formats include human-readable reports, JSON, and SARIF.
 
-| Exit code | Meaning |
-|---|---|
-| `0` | No high or critical scan finding, or verification has no failed, timed-out, or blocked checks |
-| `1` | A high or critical scan finding, or a failed, timed-out, or blocked verification |
-| `2` | Invalid command arguments or a blocked migration operation |
+| Exit code | Meaning                                                                                       |
+| --------- | --------------------------------------------------------------------------------------------- |
+| `0`       | No high or critical scan finding, or verification has no failed, timed-out, or blocked checks |
+| `1`       | A high or critical scan finding, or a failed, timed-out, or blocked verification              |
+| `2`       | Invalid command arguments or a blocked migration operation                                    |
 
 Finding severity and verification results are reported separately from the final status. Checks marked `not_configured` are not counted as passed; missing verification coverage can leave the result inconclusive.
 
