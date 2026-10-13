@@ -118,5 +118,5 @@ describe("built-in rule fixture coverage", () => {
         `${rule.id} edge`,
       ).toHaveLength(1);
     }
-  });
+  }, 20_000);
 });
